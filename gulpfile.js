@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var mocha = require('gulp-mocha');
 
 gulp.task('default', ['watch', 'sass']);
 
@@ -16,4 +17,10 @@ gulp.task('sass', function() {
 
 gulp.task('watch', function() {
   gulp.watch('./sass/**/*.scss', ['sass']);
+});
+
+gulp.task('test', function() {
+  return gulp
+    .src('./tests/**/*.js')
+    .pipe(mocha())
 });
