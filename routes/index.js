@@ -654,7 +654,7 @@ router.post('/cost_process', function(req, res) {
 router.get('/test', function(req, res) {
   //NOTE: Test code here, click Test link in index.pug
   //test write to log
-  var xml = builder.buildObject({'simulation':{logData}});
+  var xml = builder.buildObject({'simulation': logData});
   console.log(xml);
   res.redirect('/');
 });
