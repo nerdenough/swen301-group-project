@@ -39,4 +39,4 @@ node_modules
 .vagrant
 
 # Launcher
-bin/www
+bin
