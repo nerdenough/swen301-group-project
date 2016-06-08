@@ -44,7 +44,7 @@ app.use(function(req, res, next) {
 
 // Define routes
 app.use('/', index);
-app.use('/', auth);
+app.use('/auth', auth);
 
 // Catch 404 errors
 // Forwarded to the error handlers
