@@ -5,9 +5,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var logger = require('morgan');
+var mysql = require('mysql');
 
 // Config
 var config = require('./config');
+
+// DB
+var db = mysql.createConnection(config.mysql);
 
 // Custom routes
 var auth = require('./routes/auth');
@@ -34,13 +38,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Global route
 app.use(function(req, res, next) {
-  req.config = config;
+  req.db = db;
   next();
 });
 
 // Define routes
-app.use('/', auth);
 app.use('/', index);
+app.use('/', auth);
 
 // Catch 404 errors
 // Forwarded to the error handlers
