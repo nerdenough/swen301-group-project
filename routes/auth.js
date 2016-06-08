@@ -23,10 +23,6 @@ router.post('/login', function(req, res) {
     var row = rows[0];
 
     if (password === row.password) {
-      req.session.user = {
-        email: email
-      };
-
       response.success = true;
       return res.send(response);
     }
@@ -70,12 +66,6 @@ router.post('/register', function(req, res) {
       res.send(response);
     });
   });
-});
-
-// POST: /auth/logout
-router.post('/logout', function(req, res) {
-  req.session.destroy();
-  res.sendStatus(200);
 });
 
 module.exports = router;
