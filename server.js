@@ -3,11 +3,14 @@ var path = require('path');
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
-//var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var logger = require('morgan');
 
+// Config
+var config = require('./config');
+
 // Custom routes
+var auth = require('./routes/auth');
 var index = require('./routes/index');
 
 // Server setup
@@ -29,7 +32,14 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Global route
+app.use(function(req, res, next) {
+  req.config = config;
+  next();
+});
+
 // Define routes
+app.use('/', auth);
 app.use('/', index);
 
 // Catch 404 errors
