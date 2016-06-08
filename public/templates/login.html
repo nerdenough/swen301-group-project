@@ -1,19 +1,24 @@
-<div class="container" ng-controller="authCtrl">
+i<div class="container" ng-controller="AuthController as auth">
   <div class="col-md-5">
     <form role="form">
       <h2>Login</h2>
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" class="form-control" type="email" ng-model="user.email">
+        <input id="email" class="form-control" type="email" ng-model="auth.user.login.email">
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input id="password" class="form-control" type="password" ng-model="user.password">
+        <input id="password" class="form-control" type="password" ng-model="auth.user.login.password">
       </div>
 
-      <button class="btn btn-default" ng-click="login()">Submit</button>
+      <div class="error">
+        <span ng-show="auth.error.login">{{ auth.error.login }}</span>
+      </div>
+
+      <button class="btn btn-default" ng-click="auth.login()">Submit</button>
     </form>
   </div>
 
@@ -23,17 +28,17 @@
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" class="form-control" type="email" ng-model="user.email">
+        <input id="email" class="form-control" type="email" ng-model="auth.user.register.email">
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input id="password" class="form-control" type="password" ng-model="user.password">
+        <input id="password" class="form-control" type="password" ng-model="auth.user.register.password">
       </div>
 
       <div class="form-group">
         <label for="password-confirm">Confirm Password</label>
-        <input id="password-confirm" class="form-control" type="password" ng-model="user.confirm">
+        <input id="password-confirm" class="form-control" type="password" ng-model="auth.user.register.confirm">
       </div>
 
       <div class="form-group">
@@ -42,7 +47,7 @@
         <label class="radio-inline"><input name="position" type="radio">Manager</label>
       </div>
 
-      <button class="btn btn-default" ng-click="register()">Submit</button>
+      <button class="btn btn-default" ng-click="auth.register()">Submit</button>
     </form>
   </div>
 </div>
