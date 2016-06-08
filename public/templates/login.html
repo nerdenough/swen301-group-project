@@ -1,0 +1,48 @@
+<div class="container" ng-controller="authCtrl">
+  <div class="col-md-5">
+    <form role="form">
+      <h2>Login</h2>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" class="form-control" type="email" ng-model="user.email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" ng-model="user.password">
+      </div>
+
+      <button class="btn btn-default" ng-click="login()">Submit</button>
+    </form>
+  </div>
+
+  <div class="col-md-5">
+    <form role="form">
+      <h2>Sign Up</h2>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" class="form-control" type="email" ng-model="user.email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" ng-model="user.password">
+      </div>
+
+      <div class="form-group">
+        <label for="password-confirm">Confirm Password</label>
+        <input id="password-confirm" class="form-control" type="password" ng-model="user.confirm">
+      </div>
+
+      <div class="form-group">
+        <label>Position</label><br>
+        <label class="radio-inline"><input name="position" type="radio" checked>Clerk</label>
+        <label class="radio-inline"><input name="position" type="radio">Manager</label>
+      </div>
+
+      <button class="btn btn-default" ng-click="register()">Submit</button>
+    </form>
+  </div>
+</div>

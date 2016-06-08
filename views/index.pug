@@ -1,0 +1,26 @@
+doctype html
+html(ng-app='kpsmart')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+
+    title= title
+
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/css/styles.css')
+
+  body
+    include ./shared/navbar.pug
+
+    div(ui-view)
+
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.min.js')
+    script(src='/js/app.js')
+    script(src='/js/controllers/auth.controller.js')
