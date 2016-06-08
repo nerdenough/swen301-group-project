@@ -11,6 +11,8 @@ html(ng-app='kpsmart')
     link(rel='stylesheet', href='/css/styles.css')
 
   body
+    include ./shared/navbar.pug
+
     div(ui-view)
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js')
