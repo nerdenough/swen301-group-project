@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/nerdenough/swen301-group-project#readme",
   "scripts": {
-    "start": "node server.js",
+    "start": "./bin/www || node server.js",
     "test": "gulp test"
   },
   "dependencies": {
