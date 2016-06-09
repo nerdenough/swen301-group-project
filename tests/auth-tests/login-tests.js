@@ -49,5 +49,46 @@ describe('auth', function() {
           err ? done(err) : done();
         });
     });
+    it('should send status 500 when no username provided', function(done){
+      request(app)
+        .post('/auth/login')
+        .send({email: null, password: 'apples'})
+        .expect(500)
+        .end(function(err) {
+            err ? done(err) : done();
+        });
+    });
+    it('should send status 500 when no password provided', function(done){
+      request(app)
+        .post('/auth/login')
+        .send({email: "username", password: null})
+        .expect(500)
+        .end(function(err) {
+            err ? done(err) : done();
+        });
+    });
+
+
+    //Invalid Username / Email
+    it('should send status 200 and a error when invalid username provided', function(done){
+      request(app)
+        .post('/auth/login')
+        .send({email: 'hello@worlds.com', password: 'apples'})
+        .expect(200, '{"error":"User does not exist"}')
+        .end(function(err) {
+            err ? done(err) : done();
+        });
+    });
+
+    //Invalid password
+    it('should send status 200 and a error when wrong password provided', function(done){
+      request(app)
+        .post('/auth/login')
+        .send({email: 'hello@world1.com', password: 'apples'})
+        .expect(200, '{"error":"Invalid username or password"}')
+        .end(function(err) {
+            err ? done(err) : done();
+        });
+    });
   });
 });
