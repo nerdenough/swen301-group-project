@@ -17,6 +17,7 @@ var db = mysql.createConnection(config.mysql);
 var auth = require('./routes/auth');
 var index = require('./routes/index');
 var data = require('./routes/data');
+var price = require('./routes/price');
 
 // Server setup
 var app = express();
@@ -48,6 +49,7 @@ app.use(function(req, res, next) {
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/data', data);
+app.use('/price', price);
 
 // Catch 404 errors
 // Forwarded to the error handlers
