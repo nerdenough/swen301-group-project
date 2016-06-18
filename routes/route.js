@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-// POST: /price/update
-router.post('/update', function(req, res) {
+// POST: /route/price/update
+router.post('/price/update', function(req, res) {
   var id = req.body.id;
   var price = req.body.price;
   var token = req.body.token;
