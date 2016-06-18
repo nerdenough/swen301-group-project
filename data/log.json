@@ -1,0 +1,363 @@
+{
+  "simulation": {
+    "cost": [
+      {
+        "ID": "1",
+        "company": "Air NZ",
+        "to": "Rome",
+        "from": "Wellington",
+        "type": "Air",
+        "weightcost": "6",
+        "volumecost": "6",
+        "maxWeight": "350",
+        "maxVolume": "50",
+        "duration": "16",
+        "frequency": "36",
+        "day": "Thursday"
+      },
+      {
+        "ID": "2",
+        "company": "Kelburn Airways",
+        "to": "Sydney",
+        "from": "Wellington",
+        "type": "Air",
+        "weightcost": "2",
+        "volumecost": "0",
+        "maxWeight": "800",
+        "maxVolume": "80",
+        "duration": "3",
+        "frequency": "12",
+        "day": "Friday"
+      },
+      {
+        "ID": "3",
+        "company": "Qantas",
+        "to": "Sydney",
+        "from": "Wellington",
+        "type": "Air",
+        "weightcost": "2",
+        "volumecost": "1",
+        "maxWeight": "700",
+        "maxVolume": "60",
+        "duration": "3",
+        "frequency": "12",
+        "day": "Monday"
+      },
+      {
+        "ID": "4",
+        "company": "Kelburn Freight",
+        "to": "Wellington",
+        "from": "Auckland",
+        "type": "Land",
+        "weightcost": "0",
+        "volumecost": "1",
+        "maxWeight": "1200",
+        "maxVolume": "120",
+        "duration": "14",
+        "frequency": "24",
+        "day": "Thursday"
+      },
+      {
+        "ID": "5",
+        "company": "Kelburn Freight",
+        "to": "Wellington",
+        "from": "Hamilton",
+        "type": "Land",
+        "weightcost": "0",
+        "volumecost": "1",
+        "maxWeight": "1100",
+        "maxVolume": "130",
+        "duration": "10",
+        "frequency": "24",
+        "day": "Tuesday"
+      },
+      {
+        "ID": "6",
+        "company": "Rodney's Longhaul",
+        "to": "Hamilton",
+        "from": "Auckland",
+        "type": "Land",
+        "weightcost": "0",
+        "volumecost": "1",
+        "maxWeight": "8000",
+        "maxVolume": "260",
+        "duration": "2",
+        "frequency": "12",
+        "day": "Monday"
+      },
+      {
+        "ID": "7",
+        "company": "Roman Air Freight Ltd",
+        "to": "Rome",
+        "from": "Sydney",
+        "type": "Air",
+        "weightcost": "2",
+        "volumecost": "3",
+        "maxWeight": "120",
+        "maxVolume": "140",
+        "duration": "12",
+        "frequency": "24",
+        "day": "Monday"
+      },
+      {
+        "ID": "8",
+        "company": "Pacifica Merchants",
+        "to": "Suva",
+        "from": "Sydney",
+        "type": "Sea",
+        "weightcost": "3",
+        "volumecost": "3",
+        "maxWeight": "100",
+        "maxVolume": "100",
+        "duration": "36",
+        "frequency": "168",
+        "day": "Monday"
+      },
+      {
+        "ID": "9",
+        "company": "Davy Jones Ltd",
+        "to": "Rome",
+        "from": "Auckland",
+        "type": "Sea",
+        "weightcost": "5",
+        "volumecost": "4",
+        "maxWeight": "1000",
+        "maxVolume": "1000",
+        "duration": "36",
+        "frequency": "168",
+        "day": "Monday"
+      },
+      {
+        "ID": "22",
+        "company": "Qantas",
+        "to": "Sydney",
+        "from": "Wellington",
+        "type": "Air",
+        "weightcost": "2",
+        "volumecost": "1",
+        "maxWeight": "120",
+        "maxVolume": "150",
+        "duration": "3",
+        "frequency": "12",
+        "day": "Monday"
+      },
+      {
+        "ID": "31",
+        "company": "Air NZ",
+        "to": "Japan",
+        "from": "Sydney",
+        "type": "Air",
+        "weightcost": "6",
+        "volumecost": "6",
+        "maxWeight": "350",
+        "maxVolume": "50",
+        "duration": "16",
+        "frequency": "36",
+        "day": "Thursday"
+      },
+      {
+        "ID": "32",
+        "company": "Air NZ",
+        "to": "Sydney",
+        "from": "Wellington",
+        "type": "Air",
+        "weightcost": "6",
+        "volumecost": "6",
+        "maxWeight": "350",
+        "maxVolume": "50",
+        "duration": "16",
+        "frequency": "36",
+        "day": "Thursday"
+      }
+    ],
+    "price": [
+      {
+        "ID": "10",
+        "to": "Rome",
+        "from": "New Zealand",
+        "priority": "International Air",
+        "weightcost": "6",
+        "volumecost": "8",
+        "active": "Yes"
+      },
+      {
+        "ID": "11",
+        "to": "Sydney",
+        "from": "New Zealand",
+        "priority": "International Air",
+        "weightcost": "3",
+        "volumecost": "2",
+        "active": "No"
+      },
+      {
+        "ID": "12",
+        "to": "Suva",
+        "from": "New Zealand",
+        "priority": "International Air",
+        "weightcost": "4",
+        "volumecost": "4",
+        "active": "Yes"
+      },
+      {
+        "ID": "13",
+        "to": "Suva",
+        "from": "New Zealand",
+        "priority": "International Standard",
+        "weightcost": "3",
+        "volumecost": "2",
+        "active": "Yes"
+      },
+      {
+        "ID": "14",
+        "to": "New Zealand",
+        "from": "New Zealand",
+        "priority": "Domestic Standard",
+        "weightcost": "1",
+        "volumecost": "1",
+        "active": "Yes"
+      },
+      {
+        "ID": "15",
+        "to": "New Zealand",
+        "from": "New Zealand",
+        "priority": "Domestic Air",
+        "weightcost": "1",
+        "volumecost": "2",
+        "active": "Yes"
+      },
+      {
+        "ID": "23",
+        "to": "Sydney",
+        "from": "New Zealand",
+        "priority": "International Air",
+        "weightcost": "3",
+        "volumecost": "3",
+        "active": "Yes"
+      },
+      {
+        "ID": "29",
+        "to": "Japan",
+        "from": "Wellington",
+        "priority": "International Air",
+        "weightcost": "3",
+        "volumecost": "3",
+        "active": "Yes"
+      },
+      {
+        "ID": "30",
+        "to": "Sydney",
+        "from": "Wellington",
+        "priority": "International Air",
+        "weightcost": "3",
+        "volumecost": "3",
+        "active": "No"
+      },
+      {
+        "ID": "33",
+        "to": "Sydney",
+        "from": "Wellington",
+        "priority": "International Air",
+        "weightcost": "4",
+        "volumecost": "6",
+        "active": "Yes"
+      }
+    ],
+    "mail": [
+      {
+        "ID": "16",
+        "day": "Monday",
+        "to": "Rome",
+        "from": "Wellington",
+        "weight": "100",
+        "volume": "5",
+        "priority": "International Air"
+      },
+      {
+        "ID": "17",
+        "day": "Monday",
+        "to": "Sydney",
+        "from": "Wellington",
+        "weight": "1000",
+        "volume": "120",
+        "priority": "International Air"
+      },
+      {
+        "ID": "18",
+        "day": "Tuesday",
+        "to": "Rome",
+        "from": "Wellington",
+        "weight": "100",
+        "volume": "5",
+        "priority": "International Air"
+      },
+      {
+        "ID": "20",
+        "day": "Thursday",
+        "to": "Suva",
+        "from": "Wellington",
+        "weight": "2000",
+        "volume": "120",
+        "priority": "International Standard"
+      },
+      {
+        "ID": "24",
+        "day": "Thursday",
+        "to": "Wellington",
+        "from": "Auckland",
+        "weight": "100",
+        "volume": "3",
+        "priority": "Domestic Standard"
+      },
+      {
+        "ID": "25",
+        "day": "Friday",
+        "to": "Rome",
+        "from": "Hamilton",
+        "weight": "400",
+        "volume": "50",
+        "priority": "International Air"
+      },
+      {
+        "ID": "26",
+        "day": "Wednesday",
+        "to": "Rome",
+        "from": "Hamilton",
+        "weight": "400",
+        "volume": "25",
+        "priority": "International Standard"
+      },
+      {
+        "ID": "27",
+        "day": "Wednesday",
+        "to": "Sydney",
+        "from": "Auckland",
+        "weight": "100",
+        "volume": "5",
+        "priority": "International Standard"
+      },
+      {
+        "ID": "28",
+        "day": "Friday",
+        "to": "Rome",
+        "from": "Wellington",
+        "weight": "100",
+        "volume": "5",
+        "priority": "International Air"
+      }
+    ],
+    "timelimit": {
+      "ID": "19",
+      "to": "Wellington",
+      "from": "Rome",
+      "priority": "International Air",
+      "maxDeliveryTime": "4"
+    },
+    "discontinue": {
+      "ID": "21",
+      "company": "Kelburn Airways",
+      "to": "Sydney",
+      "from": "Wellington",
+      "type": "Air"
+    }
+  }
+}
