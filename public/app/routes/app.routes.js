@@ -8,7 +8,9 @@ function routes($stateProvider, $urlRouterProvider) {
     })
     .state('login', {
       url: '/login',
-      templateUrl: 'templates/login.html'
+      templateUrl: 'templates/login.html',
+      controller: 'AuthController',
+      controllerAs: 'auth'
     })
     .state('analytics', {
       url: '/analytics',
