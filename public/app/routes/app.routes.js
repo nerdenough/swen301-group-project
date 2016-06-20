@@ -1,7 +1,4 @@
-var app = angular.module('kpsmart', ['ui.router']);
-
-// Routes
-app.config(function($stateProvider, $urlRouterProvider) {
+function routes($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/dashboard');
 
   $stateProvider
@@ -11,10 +8,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
     .state('login', {
       url: '/login',
-      templateUrl: 'templates/login.html'
+      templateUrl: 'templates/login.html',
+      controller: 'AuthController',
+      controllerAs: 'auth'
     })
     .state('analytics', {
       url: '/analytics',
       templateUrl: 'templates/analytics.html'
     });
-});
+}

@@ -18,6 +18,8 @@ var auth = require('./routes/auth');
 var index = require('./routes/index');
 var data = require('./routes/data');
 var route = require('./routes/route');
+var city = require('./routes/city');
+var company = require('./routes/company');
 
 // Server setup
 var app = express();
@@ -50,6 +52,8 @@ app.use('/', index);
 app.use('/auth', auth);
 app.use('/data', data);
 app.use('/route', route);
+app.use('/city', city);
+app.use('/company', company);
 
 // Catch 404 errors
 // Forwarded to the error handlers
