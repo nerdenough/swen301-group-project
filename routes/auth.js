@@ -22,12 +22,12 @@ router.post('/login', function(req, res) {
       return res.send(response);
     }
 
-    bcrypt.compare(password, rows[0].password, function(err, res) {
+    bcrypt.compare(password, rows[0].password, function(err, result) {
       if (err) {
         return res.sendStatus(500);
       }
 
-      if (!res) {
+      if (!result) {
         response.error = 'Invalid username or password';
         return res.send(response);
       }
