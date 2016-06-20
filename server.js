@@ -16,6 +16,8 @@ var db = mysql.createConnection(config.mysql);
 // Custom routes
 var auth = require('./routes/auth');
 var index = require('./routes/index');
+var data = require('./routes/data');
+var route = require('./routes/route');
 
 // Server setup
 var app = express();
@@ -39,12 +41,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Global route
 app.use(function(req, res, next) {
   req.db = db;
+  req.config = config;
   next();
 });
 
 // Define routes
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/data', data);
+app.use('/route', route);
 
 // Catch 404 errors
 // Forwarded to the error handlers
