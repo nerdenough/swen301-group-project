@@ -91,4 +91,16 @@ router.post('/price/update', function(req, res) {
   });
 });
 
+// GET: /route/list
+router.get('/list', function(req, res) {
+  var sql = 'SELECT * FROM routes';
+  req.db.query(sql, function(err, rows) {
+    if (err) {
+      return res.sendStatus(500);
+    }
+
+    res.send(rows);
+  });
+});
+
 module.exports = router;

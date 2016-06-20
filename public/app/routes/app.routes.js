@@ -12,6 +12,12 @@ function routes($stateProvider, $urlRouterProvider) {
       controller: 'AuthController',
       controllerAs: 'auth'
     })
+    .state('routes', {
+      url: '/routes',
+      templateUrl: 'templates/routes.html',
+      controller: 'RoutesController',
+      controllerAs: 'routes'
+    })
     .state('analytics', {
       url: '/analytics',
       templateUrl: 'templates/analytics.html'

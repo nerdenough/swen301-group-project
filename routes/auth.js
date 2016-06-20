@@ -98,19 +98,27 @@ function createToken(db, email, callback) {
     .update(email + ':' + created.getTime())
     .digest('hex');
 
-  var data = {
-    created: created.getTime(),
-    expiry: expiry.getTime(),
-    token: token
-  };
-
-  sql = 'INSERT INTO tokens SET ?';
-  db.query(sql, data, function(err, result) {
-    if (err) {
+  var sql = 'SELECT id FROM users WHERE email = ?';
+  db.query(sql, email, function(err, rows) {
+    if (err || !rows.length) {
       return res.sendStatus(500);
     }
 
-    callback(token);
+    var data = {
+      'user_id': rows[0].id,
+      created: created.getTime(),
+      expiry: expiry.getTime(),
+      token: token
+    };
+
+    sql = 'INSERT INTO tokens SET ?';
+    db.query(sql, data, function(err, result) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+
+      callback(token);
+    });
   });
 }
 
