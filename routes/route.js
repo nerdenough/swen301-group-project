@@ -4,10 +4,10 @@ var router = express.Router();
 // POST: /route/create
 router.post('/create', function(req, res) {
   var origin = req.body.origin;
-  var destination = req.body.origin;
+  var destination = req.body.destination;
   var company = req.body.company;
   var cost = req.body.cost;
-  var price = req.body.cost;
+  var price = req.body.price;
   var maxWeight = req.body.maxWeight;
   var maxVolume = req.body.maxVolume;
   var type = req.body.type;
