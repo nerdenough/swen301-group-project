@@ -18,7 +18,7 @@ function AuthController($state, $http, $cookies) {
   vm.handle = function(res) {
     if (res.data.success) {
       $cookies.user = 'user@example.com';
-      $cookies.token = 'sampletoken';
+      $cookies.token = res.data.token;
       $state.go('dashboard');
     } else {
       vm.error.login = res.data.error;
