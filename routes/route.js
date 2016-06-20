@@ -1,6 +1,45 @@
 var express = require('express');
 var router = express.Router();
 
+// POST: /route/create
+router.post('/create', function(req, res) {
+  var origin = req.body.origin;
+  var destination = req.body.origin;
+  var company = req.body.company;
+  var cost = req.body.cost;
+  var price = req.body.cost;
+  var maxWeight = req.body.maxWeight;
+  var maxVolume = req.body.maxVolume;
+  var type = req.body.type;
+  var response = {};
+
+  if (!origin || !destination || !company || !cost
+      || !price || !maxWeight || !maxVolume || !type) {
+    return res.sendStatus(500);
+  }
+
+  var data = {
+    origin: origin,
+    destination: destination,
+    company: company,
+    cost: cost,
+    price: price,
+    'max_weight': maxWeight,
+    'max_volume': maxVolume,
+    'route_type': type
+  };
+
+  var sql = 'INSERT INTO routes SET ?';
+  req.db.query(sql, data, function(err, result) {
+    if (err) {
+      res.sendStatus(500);
+    }
+
+    response.success = true;
+    res.send(response);
+  });
+});
+
 // POST: /route/price/update
 router.post('/price/update', function(req, res) {
   var id = req.body.id;
