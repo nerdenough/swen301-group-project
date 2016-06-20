@@ -20,6 +20,8 @@ function routes($stateProvider, $urlRouterProvider) {
     })
     .state('analytics', {
       url: '/analytics',
-      templateUrl: 'templates/analytics.html'
+      templateUrl: 'templates/analytics.html',
+      controller: 'AnalyticsController',
+      controllerAs: 'analytics'
     });
 }
