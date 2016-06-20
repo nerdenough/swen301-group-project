@@ -21,6 +21,7 @@ var route = require('./routes/route');
 var city = require('./routes/city');
 var company = require('./routes/company');
 var customer = require('./routes/customer');
+var delivery = require('./routes/delivery');
 
 // Server setup
 var app = express();
@@ -56,6 +57,7 @@ app.use('/route', route);
 app.use('/city', city);
 app.use('/company', company);
 app.use('/customer', customer);
+app.use('/delivery', delivery);
 
 // Catch 404 errors
 // Forwarded to the error handlers
