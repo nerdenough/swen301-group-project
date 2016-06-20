@@ -57,41 +57,34 @@ router.post('/register', function(req, res) {
   req.db.query(sql, email, function(err, rows) {
     if (err) {
       return res.sendStatus(500);
-    } else if (rows.length) {
+    }
+
+    if (rows.length) {
       response.error = 'User already exists';
       return res.send(response);
     }
 
-    bcrypt.genSalt(11, function(err, salt) {
+    var salt = bcrypt.genSaltSync(11);
+    var hash = bcrypt.hashSync(password, salt);
+
+    var data = {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: hash,
+      registered: new Date().getTime()
+    };
+
+    sql = 'INSERT INTO users SET ?';
+    req.db.query(sql, data, function(err, result) {
       if (err) {
         return res.sendStatus(500);
       }
 
-      bcrypt.hash(password, salt, function(err, hash) {
-        if (err) {
-          return res.sendStatus(500);
-        }
-
-        var data = {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: hash,
-          registered: new Date().getTime()
-        };
-
-        sql = 'INSERT INTO users SET ?';
-        req.db.query(sql, data, function(err, result) {
-          if (err) {
-            return res.sendStatus(500);
-          }
-
-          createToken(req.db, email, function(token) {
-            response.success = true;
-            response.token = token;
-            res.send(response);
-          });
-        });
+      createToken(req.db, email, function(token) {
+        response.success = true;
+        response.token = token;
+        res.send(response);
       });
     });
   });
