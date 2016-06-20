@@ -1,5 +1,6 @@
 var express = require('express');
 var crypto = require('crypto');
+var bcrypt = require('bcrypt');
 var router = express.Router();
 
 // POST: /auth/login
@@ -21,15 +22,21 @@ router.post('/login', function(req, res) {
       return res.send(response);
     }
 
-    if (rows[0].password !== password) {
-      response.error = 'Invalid username or password';
-      return res.send(response);
-    }
+    bcrypt.compare(password, rows[0].password, function(err, res) {
+      if (err) {
+        return res.sendStatus(500);
+      }
 
-    createToken(req.db, email, function(token) {
-      response.success = true;
-      response.token = token;
-      res.send(response);
+      if (!res) {
+        response.error = 'Invalid username or password';
+        return res.send(response);
+      }
+
+      createToken(req.db, email, function(token) {
+        response.success = true;
+        response.token = token;
+        res.send(response);
+      });
     });
   });
 });
@@ -55,24 +62,36 @@ router.post('/register', function(req, res) {
       return res.send(response);
     }
 
-    var data = {
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      password: password,
-      registered: new Date().getTime()
-    };
-
-    sql = 'INSERT INTO users SET ?';
-    req.db.query(sql, data, function(err, result) {
+    bcrypt.genSalt(11, function(err, salt) {
       if (err) {
         return res.sendStatus(500);
       }
 
-      createToken(req.db, email, function(token) {
-        response.success = true;
-        response.token = token;
-        res.send(response);
+      bcrypt.hash(password, salt, function(err, hash) {
+        if (err) {
+          return res.sendStatus(500);
+        }
+
+        var data = {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: hash,
+          registered: new Date().getTime()
+        };
+
+        sql = 'INSERT INTO users SET ?';
+        req.db.query(sql, data, function(err, result) {
+          if (err) {
+            return res.sendStatus(500);
+          }
+
+          createToken(req.db, email, function(token) {
+            response.success = true;
+            response.token = token;
+            res.send(response);
+          });
+        });
       });
     });
   });
