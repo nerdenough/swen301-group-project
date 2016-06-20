@@ -1,6 +1,6 @@
 var express = require('express');
 var crypto = require('crypto');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 
 // POST: /auth/login
