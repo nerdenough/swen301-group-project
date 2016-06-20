@@ -12,17 +12,44 @@ router.post('/price/update', function(req, res) {
     return res.sendStatus(500);
   }
 
-  // TODO: Check user token
-  // TODO: Check route exists
-
   if (isNaN(price)) {
-    response.error = 'NaN';
+    response.error = 'Price must be a number';
     return res.send(response);
   }
 
-  // TODO: Update route in database
+  var sql = 'SELECT token FROM tokens WHERE token = ?';
+  req.db.query(sql, token, function(err, rows) {
+    if (err) {
+      return res.sendStatus(500);
+    }
 
-  res.send(response);
+    if (rows.length !== 1) {
+      response.error = 'Unauthorized user';
+      return res.send(response);
+    }
+
+    sql = 'SELECT id FROM routes WHERE id = ?';
+    req.db.query(sql, id, function(err, rows) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+
+      if (rows.length !== 1) {
+        response.error = 'Route does not exist';
+        return res.send(response);
+      }
+
+      sql = 'UPDATE routes SET price = ? WHERE id = ?';
+      req.db.query(sql, [price, id], function(err, results) {
+        if (err) {
+          return res.sendStatus(500);
+        }
+
+        response.success = true;
+        res.send(response);
+      });
+    });
+  });
 });
 
 module.exports = router;
