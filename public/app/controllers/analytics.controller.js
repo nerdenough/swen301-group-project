@@ -149,12 +149,7 @@ function AnalyticsController($scope, $http, $cookies) {
 
         // route type
         type_dim = ndx.dimension(function(d){
-          switch (d.route.route_type) {
-            case 0: return 'Land'
-            case 1: return 'Air'
-            case 2: return 'Sea'
-            default: return 'Unknown'
-          }
+          return d.route.route_type
         })
         type_group = type_dim.group().reduceSum(function(d){return 1});
 
@@ -176,28 +171,46 @@ function AnalyticsController($scope, $http, $cookies) {
               p.number++;
               p.weight += val.weight;
               p.volume += val.volume;
+              x = val.duration / 3600000;
+              p.duration += x;
               return p;
           },
           function (p, val) {
             p.number--;
             p.weight -= val.weight;
             p.volume -= val.volume;
+            x = val.duration / 3600000;
+            p.duration -= x;
 
               return p;
           },
           function () {
-              return {number: 0, weight: 0, volume: 0};
+              return {number: 0, weight: 0, volume: 0, duration: 0};
           }
         );
 
         vwChart = dc.dataTable('#VWTable');
         vwChart
           .height(450)
-          .dimension(wv_dim)
-          .group(wv_group)
+          .dimension(wv_group)
+          .order(d3.descending)
+          .group(function() {return ''})
           .columns([
-                    function(d) {return d.volume},
-                    function(d) {return d.weight}]);
+                    function(d) {return d.key},
+                    function(d) {
+                      if(d.value.volume < 0) return 0.00;
+                      return parseFloat(d.value.volume).toFixed(2);
+                    },
+                    function(d) {
+                      if(d.value.weight < 0) return 0.00;
+                      return parseFloat(d.value.weight).toFixed(2);
+                    },
+                    function(d) {
+                      val = parseFloat(d.value.duration / d.value.number).toFixed(2)
+                      if(val === 'NaN' || val < 0) return 0.00;
+                      else return val;
+                    }
+                  ]);
 
 
 
