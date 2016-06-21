@@ -11,10 +11,12 @@ router.post('/create', function(req, res) {
   var maxWeight = req.body.maxWeight;
   var maxVolume = req.body.maxVolume;
   var type = req.body.type;
+  var priority = req.body.priority;
+  var duration = req.body.duration;
   var response = {};
 
-  if (!origin || !destination || !company || !cost
-      || !price || !maxWeight || !maxVolume || !type) {
+  if (!origin || !destination || !company || !cost || !priority
+      || !price || !maxWeight || !maxVolume || !type || !duration) {
     return res.sendStatus(500);
   }
 
@@ -26,7 +28,9 @@ router.post('/create', function(req, res) {
     price: price,
     'max_weight': maxWeight,
     'max_volume': maxVolume,
-    'route_type': type
+    'route_type': type,
+    priority: priority,
+    duration: duration
   };
 
   var sql = 'INSERT INTO routes SET ?';
