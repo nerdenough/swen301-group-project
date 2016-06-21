@@ -41,7 +41,6 @@ function AnalyticsController($scope, $http, $cookies) {
     }
 
     vm.deliveries = response.data;
-    console.log(vm.deliveries);
     vm.displayAnalytics();
   };
 /*******************************************************************////
@@ -62,6 +61,37 @@ function AnalyticsController($scope, $http, $cookies) {
           all: 'All records selected (<strong>%total-count</strong>). Please click on the graph to apply filters.'
         }
       });
+
+      //Destinations
+      destin_dim = ndx.dimension(function(d){
+        return d.destination;
+      });
+      destin_group = destin_dim.group().reduceSum(function(d) {
+        return 1;
+      });
+
+      destin_PI_chart = dc.pieChart('#destinationPiChart');
+      destin_PI_chart
+        .dimension(destin_dim)
+        .group(destin_group)
+        .legend(dc.legend())
+        .height(300);
+
+      //Origin
+      destin_dim = ndx.dimension(function(d){
+        return d.origin;
+      });
+      destin_group = destin_dim.group().reduceSum(function(d) {
+        return 1;
+      });
+
+      destin_PI_chart = dc.pieChart('#originPiChart');
+      destin_PI_chart
+        .dimension(destin_dim)
+        .group(destin_group)
+        .legend(dc.legend())
+        .height(300);
+
 
 
 
