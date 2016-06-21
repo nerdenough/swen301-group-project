@@ -45,9 +45,9 @@ function AnalyticsController($scope, $http, $cookies) {
   };
 /*******************************************************************////
   vm.displayAnalytics = function() {
-    console.log('here');
     console.log(vm.deliveries);
     ndx = crossfilter(vm.deliveries);
+
 
 
 
@@ -93,7 +93,21 @@ function AnalyticsController($scope, $http, $cookies) {
         .height(300);
 
 
+      profit_Dim = ndx.dimension(function(d){
+        if (d.price - d.cost > 0){
+          return 'Profit';
+        }
+        return 'Loss';
+      });
 
+      profit_Group = profit_Dim.group().reduceSum(function(d) {return Math.abs(d.price - d.cost);});
+
+      profit_Chart = dc.pieChart('#profitsChart');
+      profit_Chart
+        .dimension(profit_Dim)
+        .group(profit_Group)
+        .legend(dc.legend())
+        .height(300);
 
 
       dc.renderAll();
