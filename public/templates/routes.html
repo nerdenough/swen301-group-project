@@ -20,8 +20,11 @@
         <td>{{ route.destination }}</td>
         <td>{{ route.price }}</td>
         <td>{{ route.cost }}</td>
-        <td><i class="fa fa-pencil"></i></td>
-        <td><i class="fa fa-close"></i></td>
+        <td><i class="fa fa-pencil orange-hover" ng-click="routes.editRoute(route)"></i></td>
+        <td><i class="fa fa-close red-hover" ng-click="routes.closeRoute(route)"></i></td>
+      </tr>
+      <tr ng-show="!routes.routes.length">
+        <td>Nothing to see here!</td>
       </tr>
     </tbody>
   </table>
