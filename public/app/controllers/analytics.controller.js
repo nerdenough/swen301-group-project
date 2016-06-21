@@ -117,6 +117,14 @@ function AnalyticsController($scope, $http, $cookies) {
       month_group = month_dim.group().reduceSum(function(d){return 1;});
 
       month_Line_Chart = dc.rowChart('#monthLineChart');
+      month_Line_Chart.xAxis().tickFormat(function(d) {
+              if (d % 1 == 0) {
+                return d3.format('.f')(d)
+              } else {
+                return ""
+              }
+            }
+            );
       month_Line_Chart
         .dimension(month_dim)
         .group(month_group)
@@ -137,6 +145,8 @@ function AnalyticsController($scope, $http, $cookies) {
       }
         })
         .height(450);
+
+
 
 
 
