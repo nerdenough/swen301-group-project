@@ -110,6 +110,37 @@ function AnalyticsController($scope, $http, $cookies) {
         .height(300);
 
 
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+      month_dim = ndx.dimension(function(d) {return monthNames[d.time.getMonth()]});
+      month_group = month_dim.group().reduceSum(function(d){return 1;});
+
+      month_Line_Chart = dc.rowChart('#monthLineChart');
+      month_Line_Chart
+        .dimension(month_dim)
+        .group(month_group)
+        .ordering(function(d){
+          switch(d.key) {
+        case "January": return 1;
+        case "February": return 2;
+        case "March": return 3;
+        case "April": return 4;
+        case "May": return 5;
+        case "June": return 6;
+        case "July": return 7;
+        case "August": return 8;
+        case "September": return 9;
+        case "October": return 10;
+        case "November": return 11;
+        case "December": return 12;
+      }
+        })
+        .height(450);
+
+
+
+
       dc.renderAll();
   };
 
