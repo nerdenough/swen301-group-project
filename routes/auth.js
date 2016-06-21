@@ -90,12 +90,38 @@ router.post('/register', function(req, res) {
   });
 });
 
+// POST: /auth/validate
+router.post('/validate', function(req, res) {
+  var token = req.body.token;
+  var response = {};
+
+  var sql = 'SELECT expiry FROM tokens WHERE token = ?';
+  req.db.query(sql, token, function(err, rows) {
+    if (err) {
+      return res.sendStatus(500);
+    }
+
+    if (!rows.length) {
+      response.error = 'Unauthorized';
+      return res.send(response);
+    }
+
+    if (new Date().getTime() > rows[0].expiry) {
+      response.error = 'Token expired';
+      return res.send(response);
+    }
+
+    response.success = true;
+    res.send(response);
+  });
+});
+
 function createToken(db, email, callback) {
-  var created = new Date();
-  var expiry = new Date(created + 7);
+  var created = new Date().getTime();
+  var expiry = created + (7 * 1000 * 24 * 60 * 60);
   var token = crypto
     .createHash('md5')
-    .update(email + ':' + created.getTime())
+    .update(email + ':' + created)
     .digest('hex');
 
   var sql = 'SELECT id FROM users WHERE email = ?';
@@ -106,8 +132,8 @@ function createToken(db, email, callback) {
 
     var data = {
       'user_id': rows[0].id,
-      created: created.getTime(),
-      expiry: expiry.getTime(),
+      created: created,
+      expiry: expiry,
       token: token
     };
 
