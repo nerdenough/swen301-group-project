@@ -15,8 +15,8 @@ CREATE TABLE tokens (
   id INT(11) NOT NULL AUTO_INCREMENT,
   user_id INT(11) NOT NULL,
   token VARCHAR(64) NOT NULL,
-  created BIGINT(10) NOT NULL,
-  expiry BIGINT(10) NOT NULL,
+  created BIGINT(13) NOT NULL,
+  expiry BIGINT(13) NOT NULL,
   PRIMARY KEY (id)
 );
 
