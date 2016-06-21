@@ -20,27 +20,76 @@ function AnalyticsController($scope, $http, $cookies) {
 
   vm.loadRoutes = function(response) {
     for (var i = 0; i < response.data.length; i++) {
-      var route = response.data[i];
-      route.origin = vm.cities[route.origin - 1].name;
-      route.destination = vm.cities[route.destination - 1].name;
-      route.company = vm.companies[route.company - 1].name;
-    }
+      var route = {
+        id: response.data[i].id,
+        cost: response.data[i].cost,
+        price: response.data[i].price,
+        maxWeight: response.data[i]['max_weight'],
+        maxVolume: response.data[i]['max_volume'],
+        type: response.data[i]['route_type'],
+        active: response.data[i].active
+      };
 
-    vm.routes = response.data;
+      for (var j = 0; j < vm.cities.length; j++) {
+        if (response.data[i].origin === vm.cities[j].id) {
+          route.origin = vm.cities[j].name;
+        }
+
+        if (response.data[i].destination === vm.cities[j].id) {
+          route.destination = vm.cities[j].name;
+        }
+      }
+
+      for (var k = 0; k < vm.companies.length; k++) {
+        if (response.data[i].company === vm.companies[k].id) {
+          route.company = vm.companies[k].name;
+        }
+      }
+
+      vm.routes.push(route);
+    }
   };
 
   vm.loadDeliveries = function(response) {
     for (var i = 0; i < response.data.length; i++) {
-      var delivery = response.data[i];
-      delivery.sender = vm.customers[delivery.sender - 1].firstname;
-      delivery.recipient = vm.customers[delivery.recipient - 1].firstname;
-      delivery.origin = vm.cities[delivery.origin - 1].name;
-      delivery.destination = vm.cities[delivery.destination - 1].name;
-      delivery.route = vm.routes[delivery.route - 1];
-      delivery.time = new Date(delivery.time);
+      var delivery = {
+        id: response.data[i].id,
+        cost: response.data[i].cost,
+        price: response.data[i].price,
+        weight: response.data[i].weight,
+        volume: response.data[i].volume,
+        time: new Date(response.data[i].time)
+      };
+
+      for (var j = 0; j < vm.customers.length; j++) {
+        if (response.data[i].sender === vm.customers[j].id) {
+          delivery.sender = vm.customers[j].firstname + ' ' + vm.customers[j].lastname;
+        }
+
+        if (response.data[i].recipient === vm.customers[j].id) {
+          delivery.recipient = vm.customers[j].firstname + ' ' + vm.customers[j].lastname;
+        }
+      }
+
+      for (var k = 0; k < vm.cities.length; k++) {
+        if (response.data[i].origin === vm.cities[k].id) {
+          delivery.origin = vm.cities[k].name;
+        }
+
+        if (response.data[i].destination === vm.cities[k].id) {
+          delivery.destination = vm.cities[k].name;
+        }
+      }
+
+      for (var l = 0; l < vm.routes.length; l++) {
+        if (response.data[i].route === vm.routes[l].id) {
+          delivery.route = vm.routes[l];
+        }
+      }
+
+      vm.deliveries.push(delivery);
     }
 
-    vm.deliveries = response.data;
     vm.displayAnalytics();
   };
 /*******************************************************************////
@@ -149,7 +198,7 @@ function AnalyticsController($scope, $http, $cookies) {
 
         // route type
         type_dim = ndx.dimension(function(d){
-          return d.route.route_type;
+          return d.route.type;
         })
         type_group = type_dim.group().reduceSum(function(d){return 1});
 
