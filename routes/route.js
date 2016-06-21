@@ -29,57 +29,15 @@ router.post('/create', function(req, res) {
     'route_type': type
   };
 
-  var sql = 'INSERT INTO routes SET ?';
-  req.db.query(sql, data, function(err, result) {
-    if (err) {
-      res.sendStatus(500);
-    }
-
-    response.success = true;
-    res.send(response);
-  });
-});
-
-// POST: /route/price/update
-router.post('/price/update', function(req, res) {
-  var id = req.body.id;
-  var price = req.body.price;
-  var token = req.body.token;
-  var response = {};
-
-  if (!id || !price || !token) {
-    return res.sendStatus(500);
-  }
-
-  if (isNaN(price)) {
-    response.error = 'Price must be a number';
-    return res.send(response);
-  }
-
-  var sql = 'SELECT token FROM tokens WHERE token = ?';
-  req.db.query(sql, token, function(err, rows) {
+  var sql = 'SELECT * FROM routes WHERE origin = ? AND destination = ? AND company = ?';
+  req.db.query(sql, [origin, destination, company], function(err, rows) {
     if (err) {
       return res.sendStatus(500);
     }
 
-    if (rows.length !== 1) {
-      response.error = 'Unauthorized user';
-      return res.send(response);
-    }
-
-    sql = 'SELECT id FROM routes WHERE id = ?';
-    req.db.query(sql, id, function(err, rows) {
-      if (err) {
-        return res.sendStatus(500);
-      }
-
-      if (rows.length !== 1) {
-        response.error = 'Route does not exist';
-        return res.send(response);
-      }
-
-      sql = 'UPDATE routes SET price = ? WHERE id = ?';
-      req.db.query(sql, [price, id], function(err, results) {
+    if (rows.length) {
+      sql = 'UPDATE routes SET cost = ?, price = ? WHERE id = ?';
+      req.db.query(sql, [cost, price, rows[0].id], function(err, result) {
         if (err) {
           return res.sendStatus(500);
         }
@@ -87,7 +45,17 @@ router.post('/price/update', function(req, res) {
         response.success = true;
         res.send(response);
       });
-    });
+    } else {
+      sql = 'INSERT INTO routes SET ?';
+      req.db.query(sql, data, function(err, result) {
+        if (err) {
+          return res.sendStatus(500);
+        }
+
+        response.success = true;
+        res.send(response);
+      });
+    }
   });
 });
 
