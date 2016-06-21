@@ -42,11 +42,37 @@ function AnalyticsController($scope, $http, $cookies) {
 
     vm.deliveries = response.data;
     console.log(vm.deliveries);
+    vm.displayAnalytics();
+  };
+/*******************************************************************////
+  vm.displayAnalytics = function() {
+    console.log('here');
+    console.log(vm.deliveries);
+    ndx = crossfilter(vm.deliveries);
+
+
+
+    //total count
+      dc.dataCount('#dataCount').options({
+        dimension: ndx,
+        group: ndx.groupAll(),
+        html: {
+          some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
+                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'\'>Reset All</a>',
+          all: 'All records selected (<strong>%total-count</strong>). Please click on the graph to apply filters.'
+        }
+      });
+
+
+
+
+      dc.renderAll();
   };
 
-  vm.displayAnalytics = function() {
-    // TODO: Add your code here
-  };
+
+
+
+  /******************************************************************///
 
   $http
     .get('/city/list')
@@ -68,5 +94,5 @@ function AnalyticsController($scope, $http, $cookies) {
     .get('/delivery/list')
     .then(vm.loadDeliveries);
 
-  vm.displayAnalytics();
+  // vm.displayAnalytics();
 }
