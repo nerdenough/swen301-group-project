@@ -24,6 +24,12 @@ function routes($stateProvider, $urlRouterProvider) {
       controller: 'CitiesController',
       controllerAs: 'cities'
     })
+    .state('companies', {
+      url: '/companies',
+      templateUrl: 'templates/companies.html',
+      controller: 'CompanyController',
+      controllerAs: 'companies'
+    })
     .state('customers', {
       url: '/customers',
       templateUrl: 'templates/customers.html',
