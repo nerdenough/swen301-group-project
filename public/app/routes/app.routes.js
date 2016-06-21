@@ -18,6 +18,18 @@ function routes($stateProvider, $urlRouterProvider) {
       controller: 'RoutesController',
       controllerAs: 'routes'
     })
+    .state('cities', {
+      url: '/cities',
+      templateUrl: 'templates/cities.html',
+      controller: 'CitiesController',
+      controllerAs: 'cities'
+    })
+    .state('customers', {
+      url: '/customers',
+      templateUrl: 'templates/customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customers'
+    })
     .state('analytics', {
       url: '/analytics',
       templateUrl: 'templates/analytics.html',

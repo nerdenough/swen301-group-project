@@ -1,6 +1,67 @@
 <div class="container">
   <h2>Routes</h2>
 
+  <h3>Create & Update</h3>
+  <div class="row">
+    <form name="routeForm" role="form" novalidate>
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.origin.$touched) && routeForm.origin.$invalid}">
+        <label for="origin">Origin</label>
+        <select name="origin" class="form-control" ng-model="routes.newRoute.origin" required>
+          <option ng-repeat="city in routes.cities" value="{{ city.id }}">{{ city.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.destination.$touched) && routeForm.destination.$invalid}">
+        <label for="destinaton">Destination</label>
+        <select name="destination" class="form-control" ng-model="routes.newRoute.destination" required>
+          <option ng-repeat="city in routes.cities" value="{{ city.id }}">{{ city.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.company.$touched) && routeForm.company.$invalid}">
+        <label for="company">Company</label>
+        <select name="company" class="form-control" ng-model="routes.newRoute.company" required>
+          <option ng-repeat="company in routes.companies" value="{{ company.id }}">{{ company.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.type.$touched) && routeForm.type.$invalid}">
+        <label for="type">Type</label>
+        <select name="type" class="form-control" ng-model="routes.newRoute.type" required>
+          <option value="land">Land</option>
+          <option value="air">Air</option>
+          <option value="sea">Sea</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.cost.$touched) && routeForm.cost.$invalid}">
+        <label for="cost">Cost</label>
+        <input name="cost" type="number" step="any" class="form-control" ng-model="routes.newRoute.cost" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.price.$touched) && routeForm.price.$invalid}">
+        <label for="price">Price</label>
+        <input name="price" type="number" step="any" class="form-control" ng-model="routes.newRoute.price" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.maxWeight.$touched) && routeForm.maxWeight.$invalid}">
+        <label for="max-weight">Max Weight</label>
+        <input name="maxWeight" type="number" step="any" class="form-control" ng-model="routes.newRoute.maxWeight" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (routes.error || routeForm.maxVolume.$touched) && routeForm.maxVolume.$invalid}">
+        <label for="max-volume">Max Volume</label>
+        <input name="maxVolume" type="number" step="any" class="form-control" ng-model="routes.newRoute.maxVolume" required>
+      </div>
+
+      <div class="form-group col-md-12">
+        <button class="btn btn-default" ng-click="routeForm.$valid ? routes.create() : routes.alertForm()">Submit</button>
+        <p ng-show="routes.error" class="error">Please fill in all the required details</p>
+      </div>
+    </form>
+  </div>
+
+  <h3>All</h3>
   <table class="table table-hover">
     <thead>
       <tr>
