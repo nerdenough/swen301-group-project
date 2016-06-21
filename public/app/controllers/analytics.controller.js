@@ -41,12 +41,174 @@ function AnalyticsController($scope, $http, $cookies) {
     }
 
     vm.deliveries = response.data;
+    vm.displayAnalytics();
+  };
+/*******************************************************************////
+  vm.displayAnalytics = function() {
     console.log(vm.deliveries);
+    ndx = crossfilter(vm.deliveries);
+
+
+
+
+    //total count
+      dc.dataCount('#dataCount').options({
+        dimension: ndx,
+        group: ndx.groupAll(),
+        html: {
+          some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
+                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'\'>Reset All</a>',
+          all: 'All records selected (<strong>%total-count</strong>). Please click on the graph to apply filters.'
+        }
+      });
+
+      //Destinations
+      destin_dim = ndx.dimension(function(d){
+        return d.destination;
+      });
+      destin_group = destin_dim.group().reduceSum(function(d) {
+        return 1;
+      });
+
+      destin_PI_chart = dc.pieChart('#destinationPiChart');
+      destin_PI_chart
+        .dimension(destin_dim)
+        .group(destin_group)
+        .legend(dc.legend())
+        .height(300);
+
+      //Origin
+      destin_dim = ndx.dimension(function(d){
+        return d.origin;
+      });
+      destin_group = destin_dim.group().reduceSum(function(d) {
+        return 1;
+      });
+
+      destin_PI_chart = dc.pieChart('#originPiChart');
+      destin_PI_chart
+        .dimension(destin_dim)
+        .group(destin_group)
+        .legend(dc.legend())
+        .height(300);
+
+        //profit to expenditure
+      profit_Dim = ndx.dimension(function(d){
+        if (d.price - d.cost > 0){
+          return 'Profit';
+        }
+        return 'Loss';
+      });
+
+      profit_Group = profit_Dim.group().reduceSum(function(d) {return Math.abs(d.price - d.cost);});
+
+      profit_Chart = dc.pieChart('#profitsChart');
+      profit_Chart
+        .dimension(profit_Dim)
+        .group(profit_Group)
+        .legend(dc.legend())
+        .height(300);
+
+        // delivery by month
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+      month_dim = ndx.dimension(function(d) {return monthNames[d.time.getMonth()]});
+      month_group = month_dim.group().reduceSum(function(d){return 1;});
+
+      month_Line_Chart = dc.rowChart('#monthLineChart');
+      month_Line_Chart.xAxis().tickFormat(function(d) {
+              if (d % 1 == 0) {
+                return d3.format('.f')(d)
+              } else {
+                return ""
+              }
+            }
+            );
+      month_Line_Chart
+        .dimension(month_dim)
+        .group(month_group)
+        .ordering(function(d){
+          switch(d.key) {
+        case "January": return 1;
+        case "February": return 2;
+        case "March": return 3;
+        case "April": return 4;
+        case "May": return 5;
+        case "June": return 6;
+        case "July": return 7;
+        case "August": return 8;
+        case "September": return 9;
+        case "October": return 10;
+        case "November": return 11;
+        case "December": return 12;
+      }
+        })
+        .height(450);
+
+
+        // route type
+        type_dim = ndx.dimension(function(d){
+          switch (d.route.route_type) {
+            case 0: return 'Land'
+            case 1: return 'Air'
+            case 2: return 'Sea'
+            default: return 'Unknown'
+          }
+        })
+        type_group = type_dim.group().reduceSum(function(d){return 1});
+
+        type_chart = dc.pieChart('#routeChart');
+        type_chart
+          .dimension(type_dim)
+          .group(type_group)
+          .legend(dc.legend())
+          .height(300);
+
+
+        wv_dim = ndx.dimension(function(d){
+          return d.origin + '-' + d.destination;
+        });
+
+        wv_group = wv_dim.group()
+        .reduce(
+          function (p, val) {
+              p.number++;
+              p.weight += val.weight;
+              p.volume += val.volume;
+              return p;
+          },
+          function (p, val) {
+            p.number--;
+            p.weight -= val.weight;
+            p.volume -= val.volume;
+
+              return p;
+          },
+          function () {
+              return {number: 0, weight: 0, volume: 0};
+          }
+        );
+
+        vwChart = dc.dataTable('#VWTable');
+        vwChart
+          .height(450)
+          .dimension(wv_dim)
+          .group(wv_group)
+          .columns([
+                    function(d) {return d.volume},
+                    function(d) {return d.weight}]);
+
+
+
+
+      dc.renderAll();
   };
 
-  vm.displayAnalytics = function() {
-    // TODO: Add your code here
-  };
+
+
+
+  /******************************************************************///
 
   $http
     .get('/city/list')
@@ -68,5 +230,5 @@ function AnalyticsController($scope, $http, $cookies) {
     .get('/delivery/list')
     .then(vm.loadDeliveries);
 
-  vm.displayAnalytics();
+  // vm.displayAnalytics();
 }
