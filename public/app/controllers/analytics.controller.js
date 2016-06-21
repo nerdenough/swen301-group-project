@@ -92,7 +92,7 @@ function AnalyticsController($scope, $http, $cookies) {
         .legend(dc.legend())
         .height(300);
 
-
+        //profit to expenditure
       profit_Dim = ndx.dimension(function(d){
         if (d.price - d.cost > 0){
           return 'Profit';
@@ -109,7 +109,7 @@ function AnalyticsController($scope, $http, $cookies) {
         .legend(dc.legend())
         .height(300);
 
-
+        // delivery by month
         var monthNames = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"
         ];
@@ -147,6 +147,57 @@ function AnalyticsController($scope, $http, $cookies) {
         .height(450);
 
 
+        // route type
+        type_dim = ndx.dimension(function(d){
+          switch (d.route.route_type) {
+            case 0: return 'Land'
+            case 1: return 'Air'
+            case 2: return 'Sea'
+            default: return 'Unknown'
+          }
+        })
+        type_group = type_dim.group().reduceSum(function(d){return 1});
+
+        type_chart = dc.pieChart('#routeChart');
+        type_chart
+          .dimension(type_dim)
+          .group(type_group)
+          .legend(dc.legend())
+          .height(300);
+
+
+        wv_dim = ndx.dimension(function(d){
+          return d.origin + '-' + d.destination;
+        });
+
+        wv_group = wv_dim.group()
+        .reduce(
+          function (p, val) {
+              p.number++;
+              p.weight += val.weight;
+              p.volume += val.volume;
+              return p;
+          },
+          function (p, val) {
+            p.number--;
+            p.weight -= val.weight;
+            p.volume -= val.volume;
+
+              return p;
+          },
+          function () {
+              return {number: 0, weight: 0, volume: 0};
+          }
+        );
+
+        vwChart = dc.dataTable('#VWTable');
+        vwChart
+          .height(450)
+          .dimension(wv_dim)
+          .group(wv_group)
+          .columns([
+                    function(d) {return d.volume},
+                    function(d) {return d.weight}]);
 
 
 
