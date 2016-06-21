@@ -6,7 +6,7 @@ CREATE TABLE users (
   email VARCHAR(32) NOT NULL,
   password VARCHAR(60) NOT NULL,
   manager TINYINT(1) NOT NULL DEFAULT 0,
-  registered BIGINT(10) NOT NULL,
+  registered BIGINT(13) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -40,8 +40,8 @@ CREATE TABLE routes (
   price DECIMAL(10, 2) NOT NULL,
   max_weight DECIMAL(10, 4) NOT NULL,
   max_volume DECIMAL(10, 4) NOT NULL,
-  route_type TINYINT(1) NOT NULL,
-  status TINYINT(1) NOT NULL DEFAULT 1,
+  route_type VARCHAR(10) NOT NULL,
+  active TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (id)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE deliveries (
   origin INT(11) NOT NULL,
   destination INT(11) NOT NULL,
   route INT(11) NOT NULL,
-  time INT(13) NOT NULL,
+  time BIGINT(13) NOT NULL,
   PRIMARY KEY (id)
 );
 
