@@ -1,14 +1,19 @@
-function RoutesController($scope, $http, $cookies) {
+function DeliveryController($scope, $http, $cookies) {
   var vm = this;
+  vm.deliveries = [];
   vm.routes = [];
-  vm.routesRaw = [];
+  vm.customers = [];
   vm.companies = [];
   vm.cities = [];
-  vm.newRoute = {};
+  vm.newDelivery = {};
   vm.error = false;
 
   vm.alertForm = function() {
     vm.error = true;
+  };
+
+  vm.loadCustomers = function(response) {
+    vm.customers = response.data;
   };
 
   vm.loadCompanies = function(response) {
@@ -21,7 +26,6 @@ function RoutesController($scope, $http, $cookies) {
 
   vm.loadRoutes = function(response) {
     for (var i = 0; i < response.data.length; i++) {
-      console.log(response.data);
       var route = {
         id: response.data[i].id,
         cost: response.data[i].cost,
@@ -49,18 +53,46 @@ function RoutesController($scope, $http, $cookies) {
       }
 
       vm.routes.push(route);
-      vm.routesRaw.push(response.data[i]);
     }
   };
 
-  vm.editRoute = function(route) {
-    vm.error = false;
+  vm.loadDeliveries = function(response) {
+    for (var i = 0; i < response.data.length; i++) {
+      var delivery = {
+        id: response.data[i].id,
+        cost: response.data[i].cost,
+        price: response.data[i].price,
+        weight: response.data[i].weight,
+        volume: response.data[i].volume,
+      };
 
-    for (var i = 0; i < vm.routesRaw.length; i++) {
-      if (vm.routesRaw[i].id === route.id) {
-        vm.newRoute = vm.routesRaw[i];
-        console.log(vm.routesRaw[i]);
+      for (var j = 0; j < vm.customers.length; j++) {
+        if (response.data[i].sender === vm.customers[j].id) {
+          delivery.sender = vm.customers[j].firstname + ' ' + vm.customers[j].lastname;
+        }
+
+        if (response.data[i].recipient === vm.customers[j].id) {
+          delivery.recipient = vm.customers[j].firstname + ' ' + vm.customers[j].lastname;
+        }
       }
+
+      for (var k = 0; k < vm.cities.length; k++) {
+        if (response.data[i].origin === vm.cities[k].id) {
+          delivery.origin = vm.cities[k].name;
+        }
+
+        if (response.data[i].destination === vm.cities[k].id) {
+          delivery.destination = vm.cities[k].name;
+        }
+      }
+
+      for (var l = 0; l < vm.routes.length; l++) {
+        if (response.data[i].route === vm.routes[l].id) {
+          delivery.route = vm.routes[l].name;
+        }
+      }
+
+      vm.deliveries.push(delivery);
     }
   };
 
@@ -68,20 +100,8 @@ function RoutesController($scope, $http, $cookies) {
     vm.error = false;
 
     $http
-      .post('/route/create', vm.newRoute)
+      .post('/delivery/create', vm.newDelivery)
       .then(vm.reload);
-  };
-
-  vm.closeRoute = function(route) {
-    $http
-      .post('/route/close', {id: route.id})
-      .then(vm.notifyClosed);
-  };
-
-  vm.notifyClosed = function(res) {
-    if (res.data.success) {
-      vm.reload();
-    }
   };
 
   vm.reload = function() {
@@ -90,12 +110,20 @@ function RoutesController($scope, $http, $cookies) {
       .then(vm.loadCities);
 
     $http
+      .get('/customer/list')
+      .then(vm.loadCustomers);
+
+    $http
       .get('/company/list')
       .then(vm.loadCompanies);
 
     $http
       .get('/route/list')
       .then(vm.loadRoutes);
+
+    $http
+      .get('/delivery/list')
+      .then(vm.loadDeliveries);
   };
 
   vm.reload();

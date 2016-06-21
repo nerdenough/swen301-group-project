@@ -4,7 +4,9 @@ function routes($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('dashboard', {
       url: '/dashboard',
-      templateUrl: 'templates/dashboard.html'
+      templateUrl: 'templates/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboard'
     })
     .state('login', {
       url: '/login',
@@ -35,6 +37,12 @@ function routes($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/customers.html',
       controller: 'CustomerController',
       controllerAs: 'customers'
+    })
+    .state('deliveries', {
+      url: '/deliveries',
+      templateUrl: 'templates/deliveries.html',
+      controller: 'DeliveryController',
+      controllerAs: 'deliveries'
     })
     .state('analytics', {
       url: '/analytics',
