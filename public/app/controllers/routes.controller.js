@@ -20,6 +20,7 @@ function RoutesController($scope, $http, $cookies) {
   };
 
   vm.loadRoutes = function(response) {
+    vm.routes = [];
     for (var i = 0; i < response.data.length; i++) {
       console.log(response.data);
       var route = {
