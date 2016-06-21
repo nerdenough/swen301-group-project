@@ -96,6 +96,11 @@ function DeliveryController($scope, $http, $cookies) {
     }
   };
 
+  vm.deliver = function(delivery) {
+    alert('Delivered!');
+    delivery.delivered = true;
+  };
+
   vm.create = function() {
     vm.error = false;
 
