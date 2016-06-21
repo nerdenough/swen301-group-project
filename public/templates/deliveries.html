@@ -93,13 +93,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="delivery in deliveries.deliveries">
+      <tr ng-repeat="delivery in deliveries.deliveries" ng-class="{'delivered': delivery.delivered}">
         <td>{{ delivery.sender }}</td>
         <td>{{ delivery.recipient }}</td>
         <td>{{ delivery.origin }}</td>
         <td>{{ delivery.destination }}</td>
         <td>{{ delivery.price }}</td>
         <td>{{ delivery.cost }}</td>
+        <td>{{ delivery.weight }}</td>
+        <td>{{ delivery.volume }}</td>
         <td><i class="fa fa-dollar orange-hover" ng-click="deliveries.calculatePrice(delivery)"></i></td>
         <td><i class="fa fa-envelope red-hover" ng-click="deliveries.deliver(delivery)"></i></td>
       </tr>
