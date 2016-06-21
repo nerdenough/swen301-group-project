@@ -12,10 +12,12 @@ router.post('/create', function data(req, res) {
   var origin = req.body.origin;
   var destination = req.body.destination;
   var route = req.body.route;
+  var priority = req.body.priority;
+  var duration = req.body.duration;
   var response = {};
 
-  if (!sender || !recipient || !cost || !price || !weight
-      || !volume || !origin || !destination || !route) {
+  if (!sender || !recipient || !cost || !price || !weight || !priority
+      || !volume || !origin || !destination || !route || !duration) {
     return res.sendStatus(500);
   }
 
@@ -29,6 +31,8 @@ router.post('/create', function data(req, res) {
     origin: origin,
     destination: destination,
     route: route,
+    priority: priority,
+    duration: duration,
     time: new Date().getTime()
   };
   var sql = 'INSERT INTO deliveries SET ?';

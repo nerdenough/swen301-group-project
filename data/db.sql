@@ -41,8 +41,6 @@ CREATE TABLE routes (
   max_weight DECIMAL(10, 4) NOT NULL,
   max_volume DECIMAL(10, 4) NOT NULL,
   route_type VARCHAR(10) NOT NULL,
-  priority INT(10) NOT NULL DEFAULT 0,
-  duration BIGINT(13) NOT NULL DEFAULT 0,
   active TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (id)
 );
@@ -59,6 +57,8 @@ CREATE TABLE deliveries (
   origin INT(11) NOT NULL,
   destination INT(11) NOT NULL,
   route INT(11) NOT NULL,
+  priority INT(11) NOT NULL DEFAULT 0,
+  duration BIGINT(13) NOT NULL DEFAULT 0,
   time BIGINT(13) NOT NULL,
   PRIMARY KEY (id)
 );
