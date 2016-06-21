@@ -1,0 +1,85 @@
+@import 'partials/base';
+
+// Navbar
+.navbar {
+  height: 80px;
+  background: $theme-color;
+  border-radius: 0;
+  padding: 15px 0;
+  border: 0;
+
+  .navbar-brand {
+    color: white;
+    font-size: 20px;
+    font-weight: $light;
+  }
+
+  .navbar-nav li a {
+    color: white;
+    font-size: 16px;
+    font-weight: $light;
+
+    &:hover {
+      color: darken($theme-color, 20%);
+    }
+  }
+
+  .navbar-collapse {
+    background: $theme-color;
+    border: 0;
+  }
+
+  .navbar-toggle {
+    background: transparent;
+    border-radius: 5px;
+    border: 0;
+
+    &:hover {
+      background: darken($theme-color, 5%);
+    }
+  }
+}
+
+.dashboard-icon {
+  margin-top: 15px;
+
+  a {
+    color: white;
+
+    &:hover {
+      .dashboard-icon-inner {
+        background: darken($theme-color, 5%);
+      }
+
+      text-decoration: none;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 15px;
+  }
+}
+
+.dashboard-icon-inner {
+  background: $theme-color;
+  text-align: center;
+  padding: 50px;
+  border-radius: 5px;
+
+  i {
+    font-size: 72px;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: $light;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-collapse {
+    margin-top: 14px;
+  }
+}

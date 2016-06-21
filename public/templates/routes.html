@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Routes</h2>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Price</th>
+        <th>Cost</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="route in routes.routes">
+        <td>{{ route.company }}</td>
+        <td>{{ route.origin }}</td>
+        <td>{{ route.destination }}</td>
+        <td>{{ route.price }}</td>
+        <td>{{ route.cost }}</td>
+        <td><i class="fa fa-pencil"></i></td>
+        <td><i class="fa fa-close"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
