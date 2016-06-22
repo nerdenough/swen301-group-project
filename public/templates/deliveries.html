@@ -1,0 +1,113 @@
+<div class="container">
+  <h2>Deliveries</h2>
+
+  <h3>Create & Update</h3>
+  <div class="row">
+    <form name="deliveryForm" role="form" novalidate>
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.sender.$touched) && deliveryForm.sender.$invalid}">
+        <label for="sender">Sender</label>
+        <select name="sender" class="form-control" ng-model="deliveries.newDelivery.sender" required>
+          <option ng-repeat="customer in deliveries.customers" value="{{ customer.id }}">{{ customer.firstname }} {{ customer.lastname }} ({{ customer.email }})</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.recipient.$touched) && deliveryForm.recipient.$invalid}">
+        <label for="recipient">Recipient</label>
+        <select name="recipient" class="form-control" ng-model="deliveries.newDelivery.recipient" required>
+          <option ng-repeat="customer in deliveries.customers" value="{{ customer.id }}">{{ customer.firstname }} {{ customer.lastname }} ({{ customer.email }})</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.origin.$touched) && deliveryForm.origin.$invalid}">
+        <label for="origin">Origin</label>
+        <select name="origin" class="form-control" ng-model="deliveries.newDelivery.origin" required>
+          <option ng-repeat="city in deliveries.cities" value="{{ city.id }}">{{ city.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.destination.$touched) && deliveryForm.destination.$invalid}">
+        <label for="destinaton">Destination</label>
+        <select name="destination" class="form-control" ng-model="deliveries.newDelivery.destination" required>
+          <option ng-repeat="city in deliveries.cities" value="{{ city.id }}">{{ city.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.route.$touched) && deliveryForm.route.$invalid}">
+        <label for="route">Route</label>
+        <select name="route" class="form-control" ng-model="deliveries.newDelivery.route" required>
+          <option ng-repeat="route in deliveries.routes" value="{{ route.id }}">{{ route.origin }} to {{ route.destination }} ({{ route.company }})</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.cost.$touched) && deliveryForm.cost.$invalid}">
+        <label for="cost">Cost</label>
+        <input name="cost" type="number" step="any" class="form-control" ng-model="deliveries.newDelivery.cost" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.price.$touched) && deliveryForm.price.$invalid}">
+        <label for="price">Price</label>
+        <input name="price" type="number" step="any" class="form-control" ng-model="deliveries.newDelivery.price" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.weight.$touched) && deliveryForm.weight.$invalid}">
+        <label for="weight">Weight</label>
+        <input name="weight" type="number" step="any" class="form-control" ng-model="deliveries.newDelivery.weight" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.volume.$touched) && deliveryForm.volume.$invalid}">
+        <label for="volume">Volume</label>
+        <input name="volume" type="number" step="any" class="form-control" ng-model="deliveries.newDelivery.volume" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.priority.$touched) && deliveryForm.priority.$invalid}">
+        <label for="priority">Priority</label>
+        <input name="priority" type="number" class="form-control" ng-model="deliveries.newDelivery.priority" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (deliveries.error || deliveryForm.duration.$touched) && deliveryForm.duration.$invalid}">
+        <label for="duration">Duration</label>
+        <input name="duration" type="number" class="form-control" ng-model="deliveries.newDelivery.duration" required>
+      </div>
+
+      <div class="form-group col-md-12">
+        <button class="btn btn-default" ng-click="deliveryForm.$valid ? deliveries.create() : deliveries.alertForm()">Submit</button>
+        <p ng-show="deliveries.error" class="error">Please fill in all the required details</p>
+      </div>
+    </form>
+  </div>
+
+  <h3>All</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Sender</th>
+        <th>Recipient</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Price</th>
+        <th>Cost</th>
+        <th>Weight</th>
+        <th>Volume</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="delivery in deliveries.deliveries" ng-class="{'delivered': delivery.delivered}">
+        <td>{{ delivery.sender }}</td>
+        <td>{{ delivery.recipient }}</td>
+        <td>{{ delivery.origin }}</td>
+        <td>{{ delivery.destination }}</td>
+        <td>{{ delivery.price }}</td>
+        <td>{{ delivery.cost }}</td>
+        <td>{{ delivery.weight }}</td>
+        <td>{{ delivery.volume }}</td>
+        <td><i class="fa fa-dollar orange-hover" ng-click="deliveries.calculatePrice(delivery)"></i></td>
+        <td><i class="fa fa-envelope red-hover" ng-click="deliveries.deliver(delivery)"></i></td>
+      </tr>
+      <tr ng-show="!deliveries.deliveries.length">
+        <td>Nothing to see here!</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

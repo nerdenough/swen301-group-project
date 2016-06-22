@@ -59,6 +59,24 @@ router.post('/create', function(req, res) {
   });
 });
 
+// POST: /route/close
+router.post('/close', function(req, res) {
+  var id = req.body.id;
+
+  if (!id) {
+    return res.sendStatus(500);
+  }
+
+  var sql = 'DELETE FROM routes WHERE id = ?';
+  req.db.query(sql, id, function(err, result) {
+    if (err) {
+      return res.sendStatus(500);
+    }
+
+    res.send({success: true});
+  });
+});
+
 // GET: /route/list
 router.get('/list', function(req, res) {
   var sql = 'SELECT * FROM routes';

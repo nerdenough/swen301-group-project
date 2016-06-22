@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Cities</h2>
+
+  <h3>Create</h3>
+  <div class="row">
+    <form name="cityForm" role="form" novalidate>
+      <div class="form-group col-md-6" ng-class="{'has-error': (cities.error || cityForm.name.$touched) && cityForm.name.$invalid}">
+        <label for="name">Name</label>
+        <input name="name" type="text" class="form-control" ng-model="cities.newCity.name" required>
+      </div>
+
+      <div class="form-group col-md-12">
+        <button class="btn btn-default" ng-click="cityForm.$valid ? cities.create() : cities.alertForm()">Submit</button>
+        <p ng-show="cities.error" class="error">Please fill in all the required details</p>
+      </div>
+    </form>
+  </div>
+
+  <h3>All</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="city in cities.cities">
+        <td>{{ city.id }}</td>
+        <td>{{ city.name }}</td>
+      </tr>
+      <tr ng-show="!cities.cities.length">
+        <td>Nothing to see here!</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

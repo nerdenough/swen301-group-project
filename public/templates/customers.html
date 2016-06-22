@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Customers</h2>
+
+  <h3>Create</h3>
+  <div class="row">
+    <form name="customerForm" role="form" novalidate>
+      <div class="form-group col-md-6" ng-class="{'has-error': (customers.error || customerForm.firstname.$touched) && customerForm.firstname.$invalid}">
+        <label for="firstname">Firstname</label>
+        <input name="firstname" type="text" class="form-control" ng-model="customers.newCustomer.firstname" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (customers.error || customerForm.lastname.$touched) && customerForm.lastname.$invalid}">
+        <label for="lastname">Lastname</label>
+        <input name="lastname" type="text" class="form-control" ng-model="customers.newCustomer.lastname" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (customers.error || customerForm.email.$touched) && customerForm.email.$invalid}">
+        <label for="email">Email</label>
+        <input name="email" type="email" class="form-control" ng-model="customers.newCustomer.email" required>
+      </div>
+
+      <div class="form-group col-md-6" ng-class="{'has-error': (customers.error || customerForm.address.$touched) && customerForm.address.$invalid}">
+        <label for="address">Address</label>
+        <input name="address" type="text" class="form-control" ng-model="customers.newCustomer.address" required>
+      </div>
+
+      <div class="form-group col-md-12">
+        <button class="btn btn-default" ng-click="customerForm.$valid ? customers.create() : customers.alertForm()">Submit</button>
+        <p ng-show="customers.error" class="error">Please fill in all the required details</p>
+      </div>
+    </form>
+  </div>
+
+  <h3>All</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="customer in customers.customers">
+        <td>{{ customer.firstname }}</td>
+        <td>{{ customer.lastname }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.address }}</td>
+      </tr>
+      <tr ng-show="!customers.customers.length">
+        <td>Nothing to see here!</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -78,6 +78,14 @@
   }
 }
 
+#VWTable tr.dc-table-group {
+  display: none;
+}
+
+.delivered {
+  background: #5BF56D;
+}
+
 @media screen and (max-width: 768px) {
   .navbar-collapse {
     margin-top: 14px;
